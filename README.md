@@ -32,9 +32,72 @@ _“pretty cool”_ — [Brendan Eich](https://x.com/BrendanEich/status/20945920
 
 <div align="center">
 
-**[Quick Start](#-quick-start) · [First Five Minutes](#-the-first-five-minutes) · [Talk to It](#-talk-to-it) · [What's Live](#-whats-on-the-globe) · [Under the Hood](#-under-the-hood) · [Keys & Costs](#-api-keys) · [Contributing](CONTRIBUTING.md)**
+**[Jarvis](#-jarvis-this-fork) · [Quick Start](#-quick-start) · [First Five Minutes](#-the-first-five-minutes) · [Talk to It](#-talk-to-it) · [What's Live](#-whats-on-the-globe) · [Under the Hood](#-under-the-hood) · [Keys & Costs](#-api-keys) · [Contributing](CONTRIBUTING.md)**
 
 </div>
+
+---
+
+> **This is a personal fork of [God's Eye View](https://github.com/bilawalsidhu/gods-eye-view) by Bilawal Sidhu (MIT).** It adds **Jarvis**, a JARVIS-style assistant that lives in the globe, answers to "Hey Jarvis", reaches your phone, and speaks up on its own. Everything below the Jarvis section is the original project's README.
+
+## 🤖 Jarvis (this fork)
+
+Jarvis is a voice and text assistant built into God's Eye View. It runs on your own computer, uses free NVIDIA models, and only acts for your own devices.
+
+### What it does
+
+| | |
+|---|---|
+| 🎙️ **"Hey Jarvis"** | Hands-free wake word that runs in the browser (openWakeWord). Ask a follow-up without repeating the wake word, and say "Hey Jarvis" again to interrupt a long answer. |
+| 🧠 **A real assistant** | NVIDIA NIM models with automatic fallback when one is slow or down, a calm male NVIDIA Magpie voice, and memory of facts you ask it to remember. |
+| 🌍 **Drives the globe** | Fly anywhere, turn layers on and off, change visual styles, track flights and answer "how many / which / nearest" questions about live data. |
+| ⏰ **Reminders & timers** | "Remind me at 6:47 PM to practice", "set a 10 minute pasta timer", "text me at 7 to study". It always uses your local time. |
+| ☀️ **Daily briefing** | Weather at home, today's calendar, important email senders, reminders and headlines. Say "brief me" or schedule it every morning. |
+| 🚨 **Alerts** | Earthquakes near home, National Weather Service warnings, and "tell me when UAL123 lands". Alerts use fixed wording, no AI, and are never repeated. |
+| 📱 **Your phone** | Push notifications through [ntfy](https://ntfy.sh), plus **two-way iMessage** through [Inkbox](https://inkbox.ai): text Jarvis from anywhere and it texts back. |
+| 🔌 **Your apps** | Email, calendar, files and more through [Composio](https://composio.dev), only from trusted devices. |
+| 🖥️ **Jarvis panel** | A small HUD over the globe: status ring, last exchange, upcoming items. Press **J** to show or hide it. |
+| 🌙 **Sleep mode** | "Goodnight, Jarvis" turns the mic off everywhere, turns the PC screen off and keeps the phone quiet (except your reminders and real emergencies) until 7 AM. |
+
+### Things to say
+
+- "Hey Jarvis, fly to Tokyo" · "turn on earthquakes" · "night vision"
+- "Remember that I prefer Fahrenheit" · "What do you know about me?"
+- "Remind me in 20 minutes to stretch" · "Text me at 7 PM to practice"
+- "Brief me" · "Brief me every weekday at 7:30"
+- "Tell me when UAL123 lands" · "Only warn me about quakes above 5"
+- "Jarvis, stand by" (stop and wait) · "Goodnight, Jarvis" (sleep) · "Show / hide the panel"
+
+### Set it up
+
+1. **Run the app** (see [Quick Start](#-quick-start)) and open **POWER UP** in the bottom-right corner.
+2. **Add an NVIDIA API key** (free at [build.nvidia.com](https://build.nvidia.com)). That's the only key Jarvis needs.
+3. **Optional extras**, also in POWER UP:
+   - **Composio** key: lets Jarvis use your apps.
+   - **ntfy** topic: phone pushes. Use a long random topic and subscribe to it in the ntfy app.
+   - **Inkbox** API key and your phone number: iMessage texting. Then text `connect @your-handle` to Inkbox's iMessage number.
+4. **Set your home**: "Hey Jarvis, set my home to Austin, Texas". This turns on local weather, news and alerts.
+5. **Click the mic** and say "Hey Jarvis".
+
+### Use it from other devices at home
+
+- **Trust one device** (for example your laptop) by adding its IP address to `GEV_TRUSTED_IPS` in `.env`. Trusted devices get POWER UP, memory, reminders and apps. Every other device on the network gets the globe and news only.
+- **Microphones need HTTPS** on other devices. Run `bash scripts/make-local-cert.sh <this-PC's-IP>`, set `GEV_HTTPS_CERT` and `GEV_HTTPS_KEY` in `.env`, and install the generated local CA on each device. Plain `http://` links redirect to `https://` automatically.
+- **Always on (Windows)**: `powershell -File scripts/jarvis-service.ps1 install` starts Jarvis at login and restarts it if it crashes.
+
+### Privacy and safety
+
+- **Keys stay on the server**, in your `.env` or POWER UP. They never reach the browser and are never committed (see `.gitignore`).
+- **Personal features are for your devices only**: this computer plus the IPs in `GEV_TRUSTED_IPS`. iMessage answers only your own number, and ignores texts from anyone else without replying.
+- **Jarvis never follows instructions found inside emails, messages or web pages.** It only reports them.
+- **No internet exposure.** Jarvis polls Inkbox and ntfy outward, so nothing on your network is opened to the internet.
+- **Where your data goes:** Jarvis's memory, reminders and settings live in `~/.gods-eye-view/` on your computer. Requests go to NVIDIA, and to Composio, ntfy and Inkbox only if you set those up.
+
+### Credits and licenses
+
+- God's Eye View © 2026 Bilawal Sidhu, [MIT](LICENSE).
+- The "Hey Jarvis" wake-word model is from [openWakeWord](https://github.com/dscripka/openWakeWord) and is **for non-commercial use only** (CC BY-NC-SA 4.0). See [`public/wakeword/NOTICE.md`](public/wakeword/NOTICE.md).
+- The NVIDIA Riva/Magpie speech protocol files are vendored under their MIT license.
 
 ---
 
